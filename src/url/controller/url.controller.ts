@@ -5,7 +5,7 @@ import { CreateShortUrlDto } from '../dto/url.dto';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
 
 @ApiTags('urls')
-@ApiBearerAuth()
+@ApiBearerAuth('JWT-auth')
 @Controller('urls')
 export class UrlController {
   constructor(private readonly urlService: UrlService) {}

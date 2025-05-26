@@ -1,5 +1,6 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn } from 'typeorm';
+import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import { User } from '../../user/entity/user.entity';
 
 @Entity()
 export class Client {
@@ -23,4 +24,7 @@ export class Client {
 
   @UpdateDateColumn()
   updatedAt: Date;
+
+  @ManyToOne(() => User, { nullable: false })
+  user: User;
 }

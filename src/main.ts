@@ -17,8 +17,19 @@ async function bootstrap() {
     .setTitle('URL Shortener API')
     .setDescription('API for URL shortening with OAuth2 and JWT authentication')
     .setVersion('1.0')
-    .addBearerAuth()
+    .addBearerAuth(
+      {
+        type: 'http',
+        scheme: 'bearer',
+        bearerFormat: 'JWT',
+        name: 'Authorization',
+        in: 'header',
+        description: 'Enter JWT token with Bearer prefix',
+      },
+      'JWT-auth',
+    )
     .build();
+
   const document = SwaggerModule.createDocument(app, config, {
     extraModels: [],
     // Add API examples for Swagger UI
@@ -31,28 +42,9 @@ async function bootstrap() {
       displayRequestDuration: true,
       defaultModelsExpandDepth: 2,
       docExpansion: 'none',
-      // Add example curl for login
-      requestSnippetsEnabled: true,
-      requestSnippets: [
-        {
-          label: 'cURL',
-          description: 'Example: User login',
-          code: `curl -X POST "http://localhost:3000/auth/login" -H "Content-Type: application/json" -d '{"username": "demo", "password": "password"}'`
-        },
-        {
-          label: 'cURL',
-          description: 'Example: Shorten URL',
-          code: `curl -X POST "http://localhost:3000/urls/shorten" -H "Authorization: Bearer <token>" -H "Content-Type: application/json" -d '{"originalUrl": "https://example.com"}'`
-        },
-        {
-          label: 'cURL',
-          description: 'Example: OAuth2 Token',
-          code: `curl -X POST "http://localhost:3000/oauth/token" -H "Content-Type: application/json" -d '{"grant_type": "authorization_code", "code": "<code>", "client_id": "<clientId>", "client_secret": "<clientSecret>", "redirect_uri": "<redirectUri>"}'`
-        }
-      ]
-    }
+    },
   });
 
-  await app.listen(3000);
+  await app.listen(3001);
 }
 bootstrap();

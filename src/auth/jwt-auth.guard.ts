@@ -19,7 +19,7 @@ export class JwtAuthGuard implements CanActivate {
     if (!authHeader) throw new UnauthorizedException('No token provided');
     const token = authHeader.split(' ')[1];
     try {
-      const payload = this.jwtService.verify(token);
+      const payload = this.jwtService.verify(token, { secret: process.env.JWT_SECRET });
       if (payload.type === 'user') {
         const user = await this.userService.findByUsername(payload.username);
         if (!user) throw new UnauthorizedException('User not found');
@@ -33,6 +33,7 @@ export class JwtAuthGuard implements CanActivate {
       }
       return true;
     } catch (e) {
+      console.error('JWT Verification Error:', e);
       throw new UnauthorizedException('Invalid or expired token');
     }
   }

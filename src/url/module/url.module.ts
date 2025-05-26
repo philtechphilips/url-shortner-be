@@ -14,7 +14,7 @@ import { ClientModule } from '../../client/module/client.module';
     AuthModule,
     UserModule,
     ClientModule,
-    JwtModule.register({}), // Ensure JwtService is available
+    JwtModule.register({}), 
   ],
   providers: [UrlService],
   controllers: [UrlController],
