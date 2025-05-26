@@ -1,5 +1,19 @@
-import { Controller, Post, Body, HttpException, HttpStatus, UseGuards, Req } from '@nestjs/common';
-import { ApiTags, ApiOperation, ApiResponse, ApiBody, ApiBearerAuth } from '@nestjs/swagger';
+import {
+  Controller,
+  Post,
+  Body,
+  HttpException,
+  HttpStatus,
+  UseGuards,
+  Req,
+} from '@nestjs/common';
+import {
+  ApiTags,
+  ApiOperation,
+  ApiResponse,
+  ApiBody,
+  ApiBearerAuth,
+} from '@nestjs/swagger';
 import { ClientService } from '../service/client.service';
 import { RegisterClientDto } from '../dto/client.dto';
 import { JwtAuthGuard } from '../../auth/jwt-auth.guard';
@@ -18,7 +32,10 @@ export class ClientController {
         summary: 'Register Client Example',
         value: {
           name: 'MyApp',
-          redirectUris: ['https://myapp.com/callback', 'https://myapp.com/redirect'],
+          redirectUris: [
+            'https://myapp.com/callback',
+            'https://myapp.com/redirect',
+          ],
         },
       },
     },
@@ -32,7 +49,10 @@ export class ClientController {
         name: 'MyApp',
         clientId: 'generated-client-id',
         clientSecret: 'generated-client-secret',
-        redirectUris: ['https://myapp.com/callback', 'https://myapp.com/redirect'],
+        redirectUris: [
+          'https://myapp.com/callback',
+          'https://myapp.com/redirect',
+        ],
       },
     },
   })
@@ -40,7 +60,11 @@ export class ClientController {
   @Post('register')
   async register(@Body() dto: RegisterClientDto, @Req() req: any) {
     // req.user is set by JwtAuthGuard
-    const client = await this.clientService.registerClient(dto.name, dto.redirectUris, req.user);
+    const client = await this.clientService.registerClient(
+      dto.name,
+      dto.redirectUris,
+      req.user,
+    );
     return {
       id: client.id,
       name: client.name,

@@ -1,4 +1,9 @@
-import { Injectable, BadRequestException, NotFoundException, UnauthorizedException } from '@nestjs/common';
+import {
+  Injectable,
+  BadRequestException,
+  NotFoundException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
 import { User } from '../entity/user.entity';
@@ -11,11 +16,23 @@ export class UserService {
     private readonly userRepository: Repository<User>,
   ) {}
 
-  async createUser(username: string, firstName: string, lastName: string, email: string, password: string): Promise<User> {
+  async createUser(
+    username: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+  ): Promise<User> {
     try {
       const hashed = await bcrypt.hash(password, 10);
-      const user = this.userRepository.create({ username, firstName, lastName, email, password: hashed });
-      console.log(user)
+      const user = this.userRepository.create({
+        username,
+        firstName,
+        lastName,
+        email,
+        password: hashed,
+      });
+      console.log(user);
       return await this.userRepository.save(user);
     } catch (error) {
       console.error('Error creating user:', error);
@@ -31,7 +48,9 @@ export class UserService {
       }
       return user;
     } catch (error) {
-      throw error instanceof NotFoundException ? error : new BadRequestException('Failed to find user by username.');
+      throw error instanceof NotFoundException
+        ? error
+        : new BadRequestException('Failed to find user by username.');
     }
   }
 
@@ -40,7 +59,9 @@ export class UserService {
       const user = await this.userRepository.findOne({ where: { email } });
       return user;
     } catch (error) {
-      throw error instanceof NotFoundException ? error : new BadRequestException('Failed to find user by email.');
+      throw error instanceof NotFoundException
+        ? error
+        : new BadRequestException('Failed to find user by email.');
     }
   }
 
@@ -56,7 +77,9 @@ export class UserService {
       }
       return user;
     } catch (error) {
-      throw error instanceof UnauthorizedException ? error : new BadRequestException('Failed to validate user.');
+      throw error instanceof UnauthorizedException
+        ? error
+        : new BadRequestException('Failed to validate user.');
     }
   }
 
@@ -72,7 +95,9 @@ export class UserService {
       }
       return user;
     } catch (error) {
-      throw error instanceof UnauthorizedException ? error : new BadRequestException('Failed to validate user by email.');
+      throw error instanceof UnauthorizedException
+        ? error
+        : new BadRequestException('Failed to validate user by email.');
     }
   }
 
@@ -84,7 +109,9 @@ export class UserService {
       }
       return user;
     } catch (error) {
-      throw error instanceof NotFoundException ? error : new BadRequestException('Failed to find user by id.');
+      throw error instanceof NotFoundException
+        ? error
+        : new BadRequestException('Failed to find user by id.');
     }
   }
 }

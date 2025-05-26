@@ -17,7 +17,10 @@ export class AuthService {
     return this.userService.validateUserByEmail(email, password);
   }
 
-  async validateClient(clientId: string, clientSecret: string): Promise<Client | null> {
+  async validateClient(
+    clientId: string,
+    clientSecret: string,
+  ): Promise<Client | null> {
     return this.clientService.validateClient(clientId, clientSecret);
   }
 
@@ -35,7 +38,11 @@ export class AuthService {
   }
 
   async loginClient(client: Client) {
-    const payload = { sub: client.id, clientId: client.clientId, type: 'client' };
+    const payload = {
+      sub: client.id,
+      clientId: client.clientId,
+      type: 'client',
+    };
     return {
       access_token: this.jwtService.sign(payload),
       expires_in: process.env.JWT_EXPIRES_IN,

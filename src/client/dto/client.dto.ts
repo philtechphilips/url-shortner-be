@@ -1,5 +1,4 @@
-import { IsNotEmpty, IsArray, ArrayNotEmpty, IsUrl } from "class-validator";
-
+import { IsNotEmpty, IsArray, ArrayNotEmpty, IsUrl } from 'class-validator';
 
 export class RegisterClientDto {
   @IsNotEmpty()

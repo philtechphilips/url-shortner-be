@@ -14,7 +14,11 @@ export class UrlService {
     private readonly urlRepository: Repository<Url>,
   ) {}
 
-  async createShortUrl(dto: CreateShortUrlDto, user?: User, client?: Client): Promise<Url> {
+  async createShortUrl(
+    dto: CreateShortUrlDto,
+    user?: User,
+    client?: Client,
+  ): Promise<Url> {
     let shortCode = dto.customCode || randomBytes(4).toString('hex');
     // Ensure shortCode is unique
     while (await this.urlRepository.findOne({ where: { shortCode } })) {

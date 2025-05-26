@@ -4,10 +4,10 @@ export class RegisterUserDto {
   @IsNotEmpty()
   username: string;
 
-   @IsNotEmpty()
+  @IsNotEmpty()
   firstName: string;
 
-   @IsNotEmpty()
+  @IsNotEmpty()
   lastName: string;
 
   @IsEmail()

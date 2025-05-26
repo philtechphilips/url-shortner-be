@@ -1,5 +1,12 @@
 import { v4 as uuidv4 } from 'uuid';
-import { Entity, PrimaryColumn, Column, CreateDateColumn, UpdateDateColumn, ManyToOne } from 'typeorm';
+import {
+  Entity,
+  PrimaryColumn,
+  Column,
+  CreateDateColumn,
+  UpdateDateColumn,
+  ManyToOne,
+} from 'typeorm';
 import { User } from '../../user/entity/user.entity';
 
 @Entity()

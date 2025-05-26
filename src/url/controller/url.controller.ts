@@ -1,4 +1,12 @@
-import { Controller, Post, Body, Get, Param, Req, UseGuards } from '@nestjs/common';
+import {
+  Controller,
+  Post,
+  Body,
+  Get,
+  Param,
+  Req,
+  UseGuards,
+} from '@nestjs/common';
 import { ApiTags, ApiBearerAuth } from '@nestjs/swagger';
 import { UrlService } from '../service/url.service';
 import { CreateShortUrlDto } from '../dto/url.dto';
